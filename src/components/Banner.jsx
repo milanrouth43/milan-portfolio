@@ -2,7 +2,9 @@ import React from 'react';
 
 const Banner = () => {
   return (
-    <section id="home" className="min-h-screen flex flex-col md:flex-row items-center justify-center gap-10 py-20 px-6 md:px-32 container mx-auto">
+    // REVERTED: 'md:px-32' -> 'md:px-16' (Normal Left Spacing)
+    // REDUCED: 'py-20' -> 'pt-28 pb-10' (Less gap at the bottom, closer to Skills)
+    <section id="home" className="min-h-screen flex flex-col md:flex-row items-center justify-center gap-10 pt-28 pb-10 px-6 md:px-16 container mx-auto">
       
       {/* Left Side: Text */}
       <div className="md:w-1/2 text-left">
@@ -13,7 +15,8 @@ const Banner = () => {
           M.C.A. Student @ Haldia Institute of Technology
         </h2>
         <p className="text-slate-600 dark:text-gray-300 mb-8 leading-relaxed text-lg">
-          Hi, I’m Milan, a computer science student passionate about technology, data, and innovation. I enjoy building efficient solutions, writing clean code, and exploring machine learning and software development.
+          I am a college student with a strong foundation in computer science and a deep passion for technology, data, and innovation. 
+          I specialize in designing efficient solutions and writing clean code.
         </p>
         
         <a 
