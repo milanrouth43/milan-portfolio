@@ -9,7 +9,7 @@ const Banner = () => {
       {/* Left Side: Text */}
       <div className="md:w-1/2 text-left">
         <h1 className="text-5xl font-bold mb-4 text-slate-900 dark:text-white">
-          Hi, I am <span className="text-blue-600 dark:text-blue-500">Milan Routh</span>
+          Hi, I am <span className="text-blue-600 dark:text-blue-500">Milan</span>
         </h1>
         <h2 className="text-2xl font-semibold text-slate-600 dark:text-gray-400 mb-6">
           M.C.A. Student @ Haldia Institute of Technology

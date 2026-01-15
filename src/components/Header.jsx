@@ -13,7 +13,7 @@ const Header = ({ darkMode, setDarkMode }) => {
         
         {/* Logo */}
         <div className="text-2xl font-bold cursor-pointer text-slate-900 dark:text-white">
-          <a href="#home">MR43</a>
+          <a href="#home">MiLAN ROUTH</a>
         </div>
 
         {/* Desktop Menu */}
