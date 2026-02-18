@@ -4,7 +4,7 @@ export const projectData = [
     description: "A Full-Stack Machine Learning app that predicts flight ticket prices based on airline, route, and timing. Built with a Flask API backend and React frontend.",
     image: "/images/flight-prediction.png",
     tags: ["Python", "Machine Learning", "Flask", "React"],
-    link: "https://github.com/milanrouth43/predict-flight-price",
+    link: "https://flight-price-prediction-project-xi.vercel.app",
   },
   {
     title: "Netflix Clone",
