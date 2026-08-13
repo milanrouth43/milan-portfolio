@@ -25,7 +25,7 @@ export const educationData = [
     degree: "Higher Secondary (WBCHSE) - 12th Grade",
     score: "Percentage: 82.40%",
     year: "July 2021",
-    desc: "Completed Higher Secondary education with Science stream (Mathematics, Physics, Chemistry, and Computer Science).",
+    desc: "Completed Higher Secondary education with Science stream (Mathematics, Physics, Chemistry, and Biology).",
     image: "/images/school.png",
     current: false
   },
