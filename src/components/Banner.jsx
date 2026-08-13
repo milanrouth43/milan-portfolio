@@ -21,7 +21,7 @@ const Banner = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
         {/* Left 7 Cols: Headline & Call To Action */}
-        <div className="lg:col-span-7 space-y-6 text-left">
+        <div className="lg:col-span-7 space-y-6 text-center lg:text-left order-2 lg:order-1 flex flex-col items-center lg:items-start">
           
           {/* Clean Modern Badge Tag */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800/60 text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-wider font-mono">
@@ -44,7 +44,7 @@ const Banner = () => {
           </p>
 
           {/* Buttons */}
-          <div className="flex flex-wrap items-center gap-3 pt-2">
+          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2 w-full">
             <a
               href="#projects"
               className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-5 py-3 rounded-lg transition-colors shadow-lg shadow-blue-600/25"
@@ -63,11 +63,11 @@ const Banner = () => {
           </div>
 
           {/* Tech Stack Row */}
-          <div className="pt-6">
+          <div className="pt-6 w-full flex flex-col items-center lg:items-start">
             <div className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 font-mono">
               Tech I Work With
             </div>
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
               {techStack.map((tech) => (
                 <div
                   key={tech.name}
@@ -82,8 +82,8 @@ const Banner = () => {
 
         </div>
 
-        {/* Right 5 Cols: Clean Profile Image */}
-        <div className="lg:col-span-5 flex items-center justify-center">
+        {/* Right 5 Cols: Clean Profile Image (Placed on top on mobile using order-1) */}
+        <div className="lg:col-span-5 flex items-center justify-center order-1 lg:order-2 mb-6 lg:mb-0">
           <div className="relative">
             
             {/* Soft Ambient Radial Glow Behind Avatar */}

@@ -83,21 +83,23 @@ const Header = ({ darkMode, setDarkMode }) => {
         </div>
 
         {/* Mobile Buttons */}
-        <div className="flex md:hidden items-center gap-2">
+        <div className="flex md:hidden items-center gap-3">
+          {/* Dark Mode button shifted left */}
           <button
             onClick={() => setDarkMode(!darkMode)}
             aria-label="Toggle Theme"
-            className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300"
+            className="p-2.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
           >
-            {darkMode ? <Sun size={16} className="text-amber-400" /> : <Moon size={16} />}
+            {darkMode ? <Sun size={15} className="text-amber-400" /> : <Moon size={15} className="text-slate-700" />}
           </button>
 
+          {/* Hamburger menu button placed at the right corner with Keka Dinda visual styling */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
-            className="p-2 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
+            className="p-2.5 rounded-lg border border-slate-200 dark:border-blue-500/35 bg-slate-50 dark:bg-blue-500/5 text-slate-700 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 transition-all shadow-sm"
           >
-            {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            {isMenuOpen ? <X size={16} /> : <Menu size={16} />}
           </button>
         </div>
 
