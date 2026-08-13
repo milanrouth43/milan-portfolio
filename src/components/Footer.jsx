@@ -16,10 +16,10 @@ const Footer = () => {
           <div className="md:col-span-8 space-y-3 text-left">
             <a href="#home" className="flex items-center gap-2">
               <span className="font-extrabold text-xl tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-indigo-500 dark:from-sky-400 dark:to-purple-500">
-                MR
+                Milan Routh
               </span>
               <span className="font-bold text-sm text-slate-900 dark:text-white">
-                Milan Routh
+                
               </span>
             </a>
             <p className="text-xs text-slate-600 dark:text-slate-400 max-w-sm leading-relaxed">
