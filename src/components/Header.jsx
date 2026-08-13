@@ -1,86 +1,135 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Download, Menu, X, Sun, Moon } from 'lucide-react';
 
 const Header = ({ darkMode, setDarkMode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: 'Home', href: '#home' },
+    { name: 'About', href: '#about' },
+    { name: 'Skills', href: '#skills' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'Experience', href: '#experience' },
+    { name: 'Education', href: '#education' },
+    { name: 'Credentials', href: '#certifications' },
+    { name: 'Contact', href: '#contact' },
+  ];
 
   return (
-    // CHANGED: bg-white/70 (High transparency) + backdrop-blur-md (Glass Blur)
-    // REMOVED: Harsh border color (now using a very subtle shadow)
-    <nav className="fixed w-full z-50 bg-white/70 dark:bg-[#0f172a]/70 backdrop-blur-md border-b border-white/20 shadow-sm transition-all duration-300">
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+      scrolled 
+        ? 'py-3.5 bg-white/90 dark:bg-[#030712]/90 backdrop-blur-md border-b border-slate-200/80 dark:border-white/[0.08] shadow-sm' 
+        : 'py-5 bg-transparent'
+    }`}>
+      <div className="container mx-auto px-6 lg:px-12 flex justify-between items-center">
         
-        {/* Logo */}
-        <div className="text-2xl font-bold cursor-pointer text-slate-900 dark:text-white">
-          <a href="#home">MiLAN ROUTH</a>
-        </div>
+        {/* Brand Logo */}
+        <a href="#home" className="flex items-center gap-2 group">
+          <span className="font-extrabold text-2xl tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-indigo-500 dark:from-sky-400 dark:to-purple-500 transition-transform">
+            MR
+          </span>
+          <span className="font-bold text-base text-slate-900 dark:text-white tracking-tight">
+            Milan Routh
+          </span>
+        </a>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex gap-8 font-medium items-center text-slate-800 dark:text-gray-300">
-          <a href="#home" className="hover:text-blue-600 dark:hover:text-blue-500 transition-colors">About</a>
-          <a href="#skills" className="hover:text-blue-600 dark:hover:text-blue-500 transition-colors">Skills</a>
-          <a href="#projects" className="hover:text-blue-600 dark:hover:text-blue-500 transition-colors">Projects</a>
-          <a href="#education" className="hover:text-blue-600 dark:hover:text-blue-500 transition-colors">Education</a>
+        {/* Center Nav Links */}
+        <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+          {navLinks.map((link, idx) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className={`text-xs font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400 ${
+                idx === 0 ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-slate-600 dark:text-slate-400'
+              }`}
+            >
+              {link.name}
+            </a>
+          ))}
+        </nav>
+
+        {/* Right CTA Buttons: Theme Toggle & Download CV */}
+        <div className="hidden sm:flex items-center gap-3">
           
-          {/* Dark Mode Toggle Button */}
-          <button 
-            onClick={() => setDarkMode(!darkMode)} 
-            className="p-2 rounded-full bg-slate-100 dark:bg-gray-700 hover:bg-slate-200 dark:hover:bg-gray-600 transition-colors"
+          {/* Dark / Light Mode Toggle Button */}
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            aria-label="Toggle Theme"
+            className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-[#080e1d] text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-500/40 transition-colors"
+            title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
           >
-            {darkMode ? (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-              </svg>
-            )}
+            {darkMode ? <Sun size={15} className="text-amber-400" /> : <Moon size={15} className="text-slate-700" />}
           </button>
 
-          <a 
-            href="https://github.com/milanrouth43" 
-            target="_blank" 
+          {/* Download CV button */}
+          <a
+            href="/resume.pdf"
+            target="_blank"
             rel="noreferrer"
-            className="bg-slate-900 dark:bg-white text-white dark:text-black px-5 py-2 rounded-full font-bold hover:opacity-80 transition-all shadow-md"
+            className="inline-flex items-center gap-2 text-xs font-medium px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/60 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white transition-colors"
           >
-            GitHub
+            <span>Download CV</span>
+            <Download size={13} className="text-slate-500 dark:text-slate-400" />
           </a>
         </div>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center gap-4">
-           {/* Mobile Dark Mode Toggle */}
-           <button 
-            onClick={() => setDarkMode(!darkMode)} 
-            className="p-2 rounded-full bg-slate-100 dark:bg-gray-700"
+        {/* Mobile Buttons */}
+        <div className="flex md:hidden items-center gap-2">
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            aria-label="Toggle Theme"
+            className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300"
           >
-            {darkMode ? (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
-            ) : (
-               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-              </svg>
-            )}
+            {darkMode ? <Sun size={16} className="text-amber-400" /> : <Moon size={16} />}
           </button>
 
-          <button onClick={toggleMenu} className="text-slate-900 dark:text-white focus:outline-none">
-            {isMenuOpen ? (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+            className="p-2 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
+          >
+            {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
+
       </div>
-    </nav>
+
+      {/* Mobile Drawer */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-white dark:bg-[#070d1d] border-b border-slate-200 dark:border-white/[0.08] px-6 py-5 shadow-xl">
+          <div className="flex flex-col gap-3 text-left">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={() => setIsMenuOpen(false)}
+                className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 py-1.5"
+              >
+                {link.name}
+              </a>
+            ))}
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-2 inline-flex items-center justify-center gap-2 text-xs font-medium py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white"
+            >
+              <Download size={14} />
+              <span>Download CV</span>
+            </a>
+          </div>
+        </div>
+      )}
+    </header>
   );
 };
 
