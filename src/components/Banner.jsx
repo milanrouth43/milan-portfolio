@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowRight, Mail } from 'lucide-react';
 
 const Banner = () => {
+  const [rotation, setRotation] = useState(0);
+  const [isClockwise, setIsClockwise] = useState(true);
+  const [floatingHearts, setFloatingHearts] = useState([]);
+
   const techStack = [
     { name: 'AWS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg' },
     { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
@@ -10,6 +14,55 @@ const Banner = () => {
     { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
     { name: 'Linux', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg' },
   ];
+
+  const spawnHeart = () => {
+    const id = Date.now() + Math.random();
+    const driftX = (Math.random() - 0.5) * 60;
+    const rotateDeg = (Math.random() - 0.5) * 90;
+    const emojis = ['❤️', '💖', '💝', '💕', '💘'];
+    const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+    
+    const newHeart = {
+      id,
+      dx: `${driftX}px`,
+      dr: `${rotateDeg}deg`,
+      emoji: randomEmoji
+    };
+    
+    setFloatingHearts(prev => [...prev, newHeart]);
+    setTimeout(() => {
+      setFloatingHearts(prev => prev.filter(h => h.id !== id));
+    }, 1000);
+  };
+
+  const spinLeft = () => {
+    setRotation(prev => prev - 360);
+    setIsClockwise(true); // next click will turn clockwise (alternating)
+    spawnHeart();
+  };
+
+  const spinRight = () => {
+    setRotation(prev => prev + 360);
+    setIsClockwise(false); // next click will turn counter-clockwise (alternating)
+    spawnHeart();
+  };
+
+  const handleHeartClick = () => {
+    if (isClockwise) {
+      spinRight();
+    } else {
+      spinLeft();
+    }
+  };
+
+  const handleHeartContextMenu = (e) => {
+    e.preventDefault();
+    if (isClockwise) {
+      spinLeft();
+    } else {
+      spinRight();
+    }
+  };
 
   return (
     <section id="home" className="relative pt-32 pb-20 px-6 lg:px-12 max-w-7xl mx-auto">
@@ -33,9 +86,44 @@ const Banner = () => {
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white tracking-tight leading-[1.15] whitespace-normal">
             I Automate Everything, <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 dark:from-blue-400 dark:via-indigo-300 dark:to-purple-400">
-              Except Falling for U
+              Except Falling for        U
             </span>
-            <span className="inline-block text-red-500 ml-2">❤️</span>
+            <span 
+              className="relative inline-block ml-1 align-middle -top-[0.15em]"
+              style={{ perspective: '1000px' }}
+            >
+              {/* Heart Emoji */}
+              <button
+                type="button"
+                onClick={handleHeartClick}
+                onContextMenu={handleHeartContextMenu}
+                className="inline-block text-red-500 hover:scale-125 cursor-pointer focus:outline-none transition-transform duration-700 ease-out select-none active:scale-95"
+                style={{
+                  transform: `rotateY(${rotation}deg)`,
+                  transformStyle: 'preserve-3d',
+                }}
+              >
+                ❤️
+              </button>
+
+              {/* Floating Hearts Particles */}
+              <div className="absolute inset-0 pointer-events-none">
+                {floatingHearts.map(heart => (
+                  <span
+                    key={heart.id}
+                    className="absolute pointer-events-none text-lg animate-float-up"
+                    style={{
+                      left: '50%',
+                      bottom: '100%',
+                      '--dx': heart.dx,
+                      '--dr': heart.dr,
+                    }}
+                  >
+                    {heart.emoji}
+                  </span>
+                ))}
+              </div>
+            </span>
           </h1>
 
           {/* Clean Professional Narrative */}

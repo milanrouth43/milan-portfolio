@@ -80,8 +80,8 @@ export const projectData = [
     ],
     tags: ["HTML5", "CSS3", "JavaScript", "Responsive Design", "Vercel"],
     image: "/images/netflix.png",
-    link: "https://multi-media-2-0-six.vercel.app/",
-    github: "https://github.com/milanrouth43",
+    link: "https://video-v.vercel.app/",
+    github: "https://github.com/milanrouth43/video-v",
     featured: false
   },
   {
@@ -98,7 +98,7 @@ export const projectData = [
     tags: ["JavaScript", "Game Logic", "CSS3", "DOM Manipulation", "Vercel"],
     image: "/images/stone-paper.png",
     link: "https://stone-paper-scissor-beige-kappa.vercel.app",
-    github: "https://github.com/milanrouth43",
+    github: "https://github.com/milanrouth43/stone_paper_scissor",
     featured: false
   }
 ];
